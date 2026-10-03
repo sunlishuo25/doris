@@ -198,6 +198,9 @@ public class IOUtils {
         long tmpLen = len;
         while (tmpLen > 0) {
             long ret = in.skip(tmpLen);
+            if (ret == 0) {
+                ret = in.read() == -1 ? -1 : 1;
+            }
             if (ret < 0) {
                 throw new IOException("Premature EOF from inputStream");
             }
